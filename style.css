@@ -3,11 +3,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    list-style: none;
+    text-decoration: none;
 }
 
 body {
     background-color: #424242;
-    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Roboto', sans-serif;
 }
 
 .header {
@@ -52,6 +54,22 @@ main {
     align-items: center;
     gap: 7.5rem;
     margin-top: -2.8rem;
+}
+
+li {
+    background-color: #E1DEDE;
+    color:#535556;
+    padding: 0.8rem;
+    font-size: 18px;
+}
+
+li:nth-child(odd) {
+    background-color: #8E8E8E;
+    color: #fff;
+}
+
+li:hover {
+    transform: scale(1.05);
 }
 
 .container {
