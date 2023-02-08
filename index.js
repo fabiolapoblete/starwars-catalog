@@ -1,18 +1,24 @@
 const url_base = "https://swapi.dev/api/";
-const endPointCharacter = "people/?page=";
-const endPointPlaner = "planets/";
+
+let data = "";
+let planet = "";
+let homeWorld = "";
 
 let page = 1;
-let data = "";
 
 let nextBtn = document.querySelector(".next");
 let backBtn = document.querySelector(".back");
-backBtn.style.display = "none";
 let pageNr = document.querySelector(".page-nr");
+
+let characterList = document.querySelector("ul");
+let details = document.querySelector(".details__character");
+let planetSection = document.querySelector(".details__planet");
+let planetDetails = document.createElement("section");
+
+backBtn.style.display = "none";
 pageNr.innerText = `${page} / 9`;
 
-let details = document.querySelector(".details__character");
-let planetDetails = document.createElement("section");
+getCharacters();
 
 async function getCharacters() {
   try {
@@ -20,6 +26,7 @@ async function getCharacters() {
     data = await response.json();
 
     createCharacterItem(data);
+
     console.log(data);
   } catch (error) {
     console.log(error);
@@ -29,17 +36,17 @@ async function getCharacters() {
 async function getHomeworld(homeWorld) {
   try {
     let response = await fetch(homeWorld);
-    let planet = await response.json();
+    planet = await response.json();
+
     createPlanetItem(planet);
 
     console.log(planet);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-getCharacters();
-
 function createPlanetItem(planet) {
-  let planetSection = document.querySelector(".details__planet");
   planetSection.innerHTML = "";
   planetDetails.innerHTML = `
     <h3>${planet.name}</h3>
@@ -57,8 +64,8 @@ function createCharacterItem(data) {
   for (let item of data.results) {
     let listItem = document.createElement("li");
     listItem.innerText = item.name;
-    console.log(item.name);
-    displayListItems(listItem);
+
+    characterList.appendChild(listItem);
 
     listItem.addEventListener("click", () => {
       details.innerHTML = "";
@@ -73,18 +80,10 @@ function createCharacterItem(data) {
         <p>Gender: ${item.gender} </p>
         `;
       details.appendChild(detailsItems);
-      let homeWorld = item.homeworld;
+      homeWorld = item.homeworld;
       getHomeworld(homeWorld);
-
-      console.log(data);
-      console.log(item.homeworld);
     });
   }
-  displayListItems();
-}
-
-function displayListItems(listItem) {
-  document.querySelector("ul").appendChild(listItem);
 }
 
 nextBtn.addEventListener("click", () => {
@@ -117,33 +116,3 @@ backBtn.addEventListener("click", () => {
     }
   }
 });
-
-// document.querySelector(".next").addEventListener("click", () => {
-//   if (page < 9) {
-//     document.querySelector(".prev").style.color = "black";
-//     charList.innerHTML = `<img src="https://media.giphy.com/media/6036p0cTnjUrNFpAlr/giphy.gif">`;
-//     page++;
-//     document.querySelector(".nrPage").innerText = page;
-//     findNames();
-//     if (page == 9) {
-//       document.querySelector(".next").style.color = "lightgray";
-//     }
-//   } else {
-//     document.querySelector(".next").style.color = "lightgray";
-//   }
-// });
-
-// document.querySelector(".prev").addEventListener("click", () => {
-//   if (page > 1) {
-//     document.querySelector(".next").style.color = "black";
-//     charList.innerHTML = `<img src="https://media.giphy.com/media/6036p0cTnjUrNFpAlr/giphy.gif">`;
-//     page--;
-//     document.querySelector(".nrPage").innerText = page;
-//     findNames();
-//     if (page == 1) {
-//       document.querySelector(".prev").style.color = "lightgray";
-//     }
-//   } else {
-//     document.querySelector(".prev").style.color = "lightgray";
-//   }
-// });
