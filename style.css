@@ -94,9 +94,10 @@ li:hover {
     flex-direction: column;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    position: relative;
 }
 
-.container section {
+.details section {
     height: 50%;
     padding-left: 1rem;
 }
@@ -113,11 +114,13 @@ li:hover {
     color: #fff;
 }
 
-
 .btn {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 33%;
 }
 
 .btn svg {
