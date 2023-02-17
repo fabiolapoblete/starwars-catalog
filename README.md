@@ -8,3 +8,7 @@ Simple vanilla SPA that uses data from https://swapi.dev
 
 ## Web app
 https://prismatic-jalebi-07de71.netlify.app/
+
+## Excercise in JS course
+- Fetch
+- API
